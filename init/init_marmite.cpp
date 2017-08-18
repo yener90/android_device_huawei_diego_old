@@ -38,10 +38,18 @@
 #include <sys/types.h>
 #include <sys/sysinfo.h>
 
+#include <android-base/file.h>
+#include <android-base/properties.h>
+#include <android-base/strings.h>
+
 #include "vendor_init.h"
 #include "property_service.h"
 #include "log.h"
 #include "util.h"
+
+
+using android::base::GetProperty;
+using android::base::ReadFileToString; 
 
 char const *heapstartsize;
 char const *heapgrowthlimit;
@@ -57,7 +65,7 @@ static int read_file2(const char *fname, char *data, int max_size)
 
     fd = open(fname, O_RDONLY);
     if (fd < 0) {
-        ERROR("failed to open '%s'\n", fname);
+        LOG(ERROR) << "failed to open '%s'\n" << fname;
         return 0;
     }
 
@@ -161,7 +169,7 @@ void vendor_load_properties()
 
     property_set("qemu.hw.mainkeys", "0");
 
-    std::string cmv = property_get("ro.boot.cmv");
+    std::string cmv = GetProperty("ro.boot.cmv", "");
 
     if (cmv == "mv1") {
         /* Swift 2 */
