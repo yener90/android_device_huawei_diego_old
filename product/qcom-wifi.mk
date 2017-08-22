@@ -16,8 +16,6 @@ PRODUCT_COPY_FILES += \
 # WiFi
 PRODUCT_PACKAGES += \
     android.hardware.wifi@1.0-service \
-    libqsap_sdk \
-    libQWiFiSoftApCfg \
     wificond \
     libwpa_client \
     libwcnss_qmi
