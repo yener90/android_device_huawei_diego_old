@@ -1,6 +1,7 @@
 /*
    Copyright (c) 2016, The CyanogenMod Project
    Copyright (c) 2017, The LineageOS Project
+
    Redistribution and use in source and binary forms, with or without
    modification, are permitted provided that the following conditions are
    met:
@@ -27,10 +28,14 @@
  */
 
 #include <cstdlib>
-#include <unistd.h>
-#include <fcntl.h>
 #include <string>
 
+#include <unistd.h>
+#include <fcntl.h>
+#include <dirent.h>
+#include <errno.h>
+
+#include <sys/types.h>
 #include <sys/sysinfo.h>
 
 #include "vendor_init.h"
@@ -115,29 +120,37 @@ void check_device()
     }
 }
 
-/* Wileyfox Swift 2 */
-void load_marmite() {
-    property_set("ro.sf.lcd_density", "320");
-    property_set("ro.media.maxmem", "10590068224");
-}
-
-/* Wileyfox Swift 2 Plus */
-void load_marmitePlus() {
-    property_set("ro.sf.lcd_density", "320");
-}
-
-/* Wileyfox Swift 2X*/
-void load_marmiteX() {
-    property_set("ro.sf.lcd_density", "440");
-    property_set("persist.bootanimation.scale", "1.5");
-    property_set("sys.lights.capabilities", "3");
-    //Based on: https://github.com/CyanogenMod/android_hardware_qcom_audio/commit/f6cfe88a8959aacbb0d1782265d4fba52c8854da
-    property_set("ro.audio.customplatform", "AW87319");
+/* 
+ * In some device revisions, there is a sound amplifier that is not activated at startup. 
+ * In stock init binary file, there is mention of the folder, which in theory is created when you connect the device in the sysfs section. 
+ * If this method does not work, replace this piece of code with the working method or revert it.
+ * If you find a more stable method, then replace it.
+ * 
+ * @Author BeYkeRYkt (21-09-2017)
+ */
+void check_aw87319(){
+    DIR* dir = opendir("/sys/bus/i2c/drivers/AW87319_PA/2-0058");
+    if (dir)
+    {
+        /* Directory exists. */
+        //Based on: https://github.com/CyanogenMod/android_hardware_qcom_audio/commit/f6cfe88a8959aacbb0d1782265d4fba52c8854da
+        property_set("ro.audio.customplatform", "AW87319");
+        property_set("audio.acdb.name", "AW87319");
+        property_set("persist.audio.calfile0", "/etc/acdbdata/AW87319/AW87319_Bluetooth_cal.acdb");
+        property_set("persist.audio.calfile1", "/etc/acdbdata/AW87319/AW87319_General_cal.acdb");
+        property_set("persist.audio.calfile2", "/etc/acdbdata/AW87319/AW87319_Global_cal.acdb");
+        property_set("persist.audio.calfile3", "/etc/acdbdata/AW87319/AW87319_Handset_cal.acdb");
+        property_set("persist.audio.calfile4", "/etc/acdbdata/AW87319/AW87319_Hdmi_cal.acdb");
+        property_set("persist.audio.calfile5", "/etc/acdbdata/AW87319/AW87319_Headset_cal.acdb");
+        property_set("persist.audio.calfile6", "/etc/acdbdata/AW87319/AW87319_Speaker_cal.acdb");
+        closedir(dir);
+    }
 }
 
 void vendor_load_properties()
 {
     check_device();
+    check_aw87319();
 
     property_set("dalvik.vm.heapstartsize", heapstartsize);
     property_set("dalvik.vm.heapgrowthlimit", heapgrowthlimit);
@@ -152,13 +165,16 @@ void vendor_load_properties()
 
     if (cmv == "mv1") {
         /* Swift 2 */
-        load_marmite();
+        property_set("ro.sf.lcd_density", "320");
+        property_set("ro.media.maxmem", "10590068224");
     } else if (cmv == "mv2"){
         /* Swift 2 Plus*/
-        load_marmitePlus();
+        property_set("ro.sf.lcd_density", "320");
     } else if (cmv == "mv3") {
-        /* Swift 2X */
-        load_marmiteX();
+        /* Swift 2 X */
+        property_set("ro.sf.lcd_density", "440");
+        property_set("persist.bootanimation.scale", "1.5");
+        property_set("sys.lights.capabilities", "3");
     }
 
     init_alarm_boot_properties();
