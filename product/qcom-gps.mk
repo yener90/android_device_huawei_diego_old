@@ -12,7 +12,11 @@ PRODUCT_PACKAGES += \
     android.hardware.gnss@1.0-impl \
     gps.msm8937 \
     libcurl \
-    libgnsspps
+    libgnss \
+    libgnsspps \
+    android.hardware.gnss@1.0-impl \
+    android.hardware.gnss@1.0-impl-qti \
+    android.hardware.gnss@1.0-service-qti
 
 # Permissions
 PRODUCT_COPY_FILES += \
