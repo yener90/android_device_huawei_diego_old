@@ -13,5 +13,5 @@ TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_HEADER_ARCH := arm64
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
 
-TARGET_KERNEL_SOURCE := kernel/wileyfox/msm8937
-TARGET_KERNEL_CONFIG := lineageos_marmite_defconfig
+TARGET_KERNEL_CONFIG := lineage_diego_defconfig
+TARGET_KERNEL_SOURCE := kernel/huawei/msm8937
