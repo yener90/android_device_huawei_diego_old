@@ -23,4 +23,4 @@ DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 include $(LOCAL_PATH)/product/*.mk
 
 # Inherit proprietary files
-$(call inherit-product, vendor/wileyfox/marmite/marmite-vendor.mk)
+$(call inherit-product, vendor/huawei/diego/diego-vendor.mk)

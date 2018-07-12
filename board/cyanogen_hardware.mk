@@ -1,3 +1,3 @@
 # CM Hardware
 BOARD_HARDWARE_CLASS += \
-    device/wileyfox/marmite/cmhw
+    device/huawei/diego/cmhw

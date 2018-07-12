@@ -1,3 +1,3 @@
-# Lights (Based on https://github.com/DevelopedInside/android_kernel_wileyfox_msm8937/blob/android-wf-6.0/arch/arm64/configs/lineageos_marmite_defconfig#L3373-L3376)
-BOARD_LIGHTS_VARIANT := aw2013
+# Lights (Based on https://github.com/Huawei-msm8937/android_kernel_huawei_msm8937/blob/cm-13.0/arch/arm64/configs/lineage_diego_defconfig#L3434)
+BOARD_LIGHTS_VARIANT := et6326
 TARGET_PROVIDES_LIBLIGHT := true

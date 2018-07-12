@@ -18,10 +18,10 @@
 
 set -e
 
-DEVICE=marmite
-VENDOR=wileyfox
+DEVICE=diego
+VENDOR=huawei
 
-INITIAL_COPYRIGHT_YEAR=2016
+INITIAL_COPYRIGHT_YEAR=2018
 
 # Load extract_utils and do some sanity checks
 MY_DIR="${BASH_SOURCE%/*}"

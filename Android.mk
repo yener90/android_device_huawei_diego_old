@@ -15,6 +15,6 @@
 
 LOCAL_PATH := $(call my-dir)
 
-ifeq ($(TARGET_DEVICE),marmite)
+ifeq ($(TARGET_DEVICE),diego)
 include $(call all-makefiles-under,$(LOCAL_PATH))
 endif

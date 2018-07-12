@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-DEVICE_PATH := device/wileyfox/marmite
+DEVICE_PATH := device/huawei/diego
 
 include device/cyanogen/msm8937-common/BoardConfigCommon.mk
 
@@ -22,4 +22,4 @@ include device/cyanogen/msm8937-common/BoardConfigCommon.mk
 include $(DEVICE_PATH)/board/*.mk
 
 # Inherit the proprietary files
--include vendor/wileyfox/marmite/BoardConfigVendor.mk
+-include vendor/huawei/diego/BoardConfigVendor.mk

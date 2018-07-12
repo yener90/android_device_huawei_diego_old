@@ -1,2 +1,2 @@
 # OTA Assert
-TARGET_OTA_ASSERT_DEVICE := marmite,omni_marmite
+TARGET_OTA_ASSERT_DEVICE := diego,omni_diego
