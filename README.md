@@ -12,7 +12,7 @@ GPU     | Adreno 506
 Memory  | 2 RAM
 Android Version | Android 6.0 (Emui 4.1)
 Storage | 16 GB
-MicroSD | Up to 64 GB
+MicroSD | Up to 128 GB
 Battery | Li-Ion 3020mAh battery
 Display | 720 x 1280 pixels, 5.0 inches
 Camera  | 13 MP, autofocus, flash LED
