@@ -2,20 +2,17 @@
 # The filesystem that contains the filesystem checker binary (typically /system) cannot
 # specify MF_CHECK, and must come before any filesystems that do specify MF_CHECK
 
-#TODO: Add 'check' as fs_mgr_flags with data partition.
-# Currently we dont have e2fsck compiled. So fs check would failed.
+#<src>                                       <mnt_point>        <type>  <mnt_flags and options>                             <fs_mgr_flags>
+/dev/block/bootdevice/by-name/boot           /boot              emmc    defaults                                            defaults
+/dev/block/bootdevice/by-name/recovery       /recovery          emmc    defaults                                            defaults
+/dev/block/bootdevice/by-name/system         /system            ext4    ro,barrier=1                                        wait,verify
+/dev/block/bootdevice/by-name/userdata       /data              ext4    noatime,nosuid,nodev,barrier=1,data=ordered,noauto_da_alloc     wait,check,formattable,forceencrypt=footer,length=-16384
+/dev/block/bootdevice/by-name/cust           /cust       	ext4    ro,nosuid,nodev,barrier=1,noauto_da_alloc     	    wait,continue
+/dev/block/bootdevice/by-name/cache          /cache             ext4    noatime,nosuid,nodev,barrier=1,noauto_da_alloc      wait,check,formattable
+/dev/block/bootdevice/by-name/persist        /persist    	ext4    nosuid,nodev,barrier=1                              wait,check,continue
+/dev/block/bootdevice/by-name/misc           /misc              emmc    defaults                                            defaults
+/dev/block/bootdevice/by-name/config         /frp               emmc    defaults                                            defaults
 
-#<src>                                                <mnt_point>  <type>  <mnt_flags and options>                     <fs_mgr_flags>
-/dev/block/bootdevice/by-name/log        /log         vfat    nosuid,nodev,uid=1000,gid=1007,fmask=0007,dmask=0007         wait,check,continue
-/dev/block/bootdevice/by-name/system         /system      ext4    ro,barrier=1,discard                                wait,verify,continue
-/dev/block/bootdevice/by-name/userdata       /data        f2fs    nosuid,nodev,noatime,discard,inline_data,inline_xattr     wait,check,forceencrypt=footer
-/dev/block/bootdevice/by-name/cust                    /cust        ext4     ro,nosuid,nodev,barrier=1,noauto_da_alloc     wait,continue
-/dev/block/bootdevice/by-name/cache      /cache      ext4    nosuid,nodev,barrier=1                              wait,check,continue
-/dev/block/bootdevice/by-name/persist    /persist    ext4    nosuid,nodev,barrier=1                              wait,check,continue
-/devices/soc/7864900.sdhci/mmc_host*        /storage/sdcard1   vfat    nosuid,nodev         wait,voldmanaged=sdcard1:auto,noemulatedsd
-#DTS2016091210279 jiangtao/jwx348002 20161019 begin
-/dev/block/zram0             none         swap    defaults zramsize=268435456
-#DTS2016091210279 jiangtao/jwx348002 20161019 end
-/dev/block/bootdevice/by-name/config         /frp  emmc    defaults                                            defaults
-/devices/soc/7000000.ssusb/7000000.dwc3/*     /storage/usbotg    vfat    nosuid,nodev         wait,voldmanaged=usbotg:auto
+/devices/soc/7864900.sdhci/mmc_host*         /storage/sdcard1   vfat    nosuid,nodev                                        wait,voldmanaged=sdcard1:auto,noemulatedsd,encryptable=footer
+/devices/soc/78db000.usb/msm_hsusb_host*     /storage/usbotg    vfat    nosuid,nodev                                        wait,voldmanaged=usbotg:auto
 
